@@ -1,0 +1,18 @@
+name: DEEPCONVBILSTMATT
+
+in_channels: 11
+num_classes: 12
+
+# CNN
+conv_channels: 64
+
+# LSTM
+lstm_hidden: 128
+lstm_layers: 2
+bidirectional: true
+
+# Pooling
+use_attention: true
+
+# Regularization
+dropout: 0.5

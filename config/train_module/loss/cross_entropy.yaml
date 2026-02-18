@@ -1,0 +1,36 @@
+_target_: module_training.losses.CrossEntropyLossWrapper
+reduction: mean
+ignore_index: -100
+label_smoothing: 0.0
+
+
+num_classes: ${num_classes}
+# 这三个参数给 BO 搜索
+alpha_0: 1.0
+alpha_1: 1 #1.757120310602457    # class 1 权重
+alpha_2: 1.2
+alpha_3: 0.8  # 0.5188696211294795    # class 3 权重
+alpha_4: 1.2
+alpha_5: 2.0 # 4.286935454946644    # class 5 权重
+alpha_6: 3 #1 #8.0
+alpha_7: 3 #8
+alpha_8: 3 #8
+alpha_9: 3 #8
+alpha_10: 3 #8
+alpha_11: 3 #10
+
+#alpha_0: 1.0
+#alpha_1: 1 #1.757120310602457    # class 1 权重
+#alpha_2: 1.0
+#alpha_3: 1  # 0.5188696211294795    # class 3 权重
+#alpha_4: 1.0
+#alpha_5: 1 # 4.286935454946644    # class 5 权重
+#alpha_6: 1 #1 #8.0
+#alpha_7: 1 #8
+#alpha_8: 1 #8
+#alpha_9: 1 #8
+#alpha_10: 1 #8
+#alpha_11: 1 #10
+
+# 显式 weight 留空，用 alpha_* 构造
+weight: null

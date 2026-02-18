@@ -1,0 +1,9 @@
+name: cnn
+init:
+  enable: true
+  #entity: "zizi-Deep-Learning-Labor"
+  project: NEW_human_activity  #_cnn
+  name: "${save.date_prefix}_${model.name}"
+  group: experiment_hapt_cnn
+  tags: [HAPT,CNN]
+  id: null

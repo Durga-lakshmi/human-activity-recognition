@@ -1,0 +1,13 @@
+name: CNN_TCN
+in_channels: 11 #6 9 11
+num_classes: 12
+cnn_channels: 64
+tcn_channels: 384 # 128
+tcn_dropout: 0.20713149725733498 # 0.29721001206352854
+cnn_kernel_size: 7
+tcn_kernel_size: 3
+tcn_dilations: [2,4] # [2,4] # dilations best:[2,4,8]
+pooling: "mean_max"  #, "mean"),
+use_pose: true
+use_posture: false
+use_phys_head: true

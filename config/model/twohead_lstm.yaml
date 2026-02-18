@@ -1,0 +1,8 @@
+name: TWOHEADHAR
+in_ch: 6 # 6 8
+num_coarse_classes: 3
+num_fine_classes: 12
+dropout: 0.2
+lstm_hidden: 128
+lstm_layers: 1
+bidirectional: true

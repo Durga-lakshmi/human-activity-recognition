@@ -1,0 +1,5 @@
+name: adamw        # adam | adamw
+lr: ${lr}
+weight_decay: 0 #1e-2
+betas: [0.9, 0.999]
+eps: ${train_eps}

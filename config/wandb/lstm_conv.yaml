@@ -1,0 +1,10 @@
+name: lstm_conv
+
+init:
+  enable: true
+  #entity: "zizi-Deep-Learning-Labor"
+  project: NEW_human_activity  #_lstm_conv
+  name: "${save.date_prefix}_${model.name}"
+  group: experiment_hapt_conv_lstm
+  tags: [LSTM, HAPT,CNN]
+  id: null

@@ -1,0 +1,49 @@
+name: default_RW
+
+defaults:
+  - dataset: har
+  - model: har_lstm
+  - wandb: hapt_lstm 
+  - train_module/optimizer: adamw
+  #- scheduler: none # cosine # none
+  #- loss: cross_entropy
+  - _self_
+
+plot_dataset:
+  num_samples: 1
+  save_dir: "./notebooks/EDA/HAPT"
+  file_name: "hapt_user1_plot_seperate.png"
+  sample_path: "${plot_dataset.save_dir}/${plot_dataset.file_name}"
+
+sliding_window:
+  window_size: 128
+  window_shift: 64
+
+# Normalization parameters
+mean: null
+std: null
+eps: 1e-8
+
+
+# Training parameters
+lr: 1e-3
+train_eps: 1e-8 # Adam/AdamW epsilon parameter
+
+seed: 42
+epochs: 2
+log_interval: 10
+eval_interval: 1
+
+# Saving
+save:
+  base_dir: "./checkpoints"
+  model_name: ${model.name}
+  date_prefix: ${now:%Y%m%d_%H%M}
+  save_dir: "${save.base_dir}/${save.model_name}"
+  file_name: "${save.date_prefix}_best_model_epoch${epochs}.pth" #important changed point
+  path: "${save.save_dir}/${save.file_name}"
+
+
+# Testing
+check_modus: true
+check_path: 'artifacts/checkpoints/checkpoint_epoch4.pth'  # Path to the saved model checkpoint

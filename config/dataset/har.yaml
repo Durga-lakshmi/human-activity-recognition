@@ -1,0 +1,14 @@
+name: HAR
+path: /home/data/realworld2016_dataset     # root folder
+
+
+train_users: [1, 2, 5, 8, 11, 12, 13, 15]
+val_users: [3]
+test_users: [9, 10]
+mean: null
+std: null
+eps: 1e-8
+batch_size: 64
+num_workers: 4
+sampling_rate: 50
+oversample: false

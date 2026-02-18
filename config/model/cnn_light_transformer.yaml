@@ -1,0 +1,11 @@
+name: CNN_LIGHT_TRANSFORMER
+
+in_channels: 11
+num_classes: 12
+
+# Transformer 
+d_model: 128          
+nhead: 4              
+num_layers: 2         
+
+dropout: 0.3

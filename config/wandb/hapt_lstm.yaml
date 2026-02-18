@@ -1,0 +1,14 @@
+name: hapt_lstm
+
+init:
+  enable: true
+  #entity: "zizi-Deep-Learning-Labor"
+  project: NEW_human_activity #_lstm
+  name: "${save.date_prefix}_${model.name}"
+  group: experiment_hapt_lstm
+  tags: [LSTM, HAPT]
+  id: null
+
+#train_wb:
+#val_wb:
+#test_wb:

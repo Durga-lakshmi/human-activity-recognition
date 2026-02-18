@@ -1,0 +1,31 @@
+_target_: module_training.losses.FocalLossWrapper
+
+# 类别数
+num_classes: ${num_classes}
+
+# focal 超参
+gamma: 2.0 #可以调
+
+# 原来 alpha: [1.0, 1.0, 1.5, 0.7, 1.5, 3.0]
+# 映射为逐类权重：
+alpha_0: 1.0   # class 0
+alpha_1: 1.0   # class 1
+alpha_2: 1  #1.5   # class 2
+alpha_3: 1   #0.7   # class 3
+alpha_4: 1   #1.5   # class 4
+alpha_5: 1   #3.0   # class 5
+#alpha_6: 8
+#alpha_7: 8
+#alpha_8: 8
+#alpha_9: 8
+#alpha_10: 8
+#alpha_11: 8
+alpha_block_1: 3 #8.83305100472537   # 作用于 classes 6,7,8
+alpha_block_2: 3  #8.236286609082136  # 作用于 classes 9,10,11
+
+# 不再直接传 weight，让 wrapper 用 alpha_* 构造
+weight: null
+
+ignore_index: -100
+label_smoothing: 0.0
+reduction: mean

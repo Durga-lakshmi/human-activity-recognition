@@ -1,0 +1,10 @@
+name: twohead_lstm
+
+init:
+  enable: true
+  #entity: "zizi-Deep-Learning-Labor"
+  project: NEW_human_activity #_twohead_lstm
+  name: "${save.date_prefix}_${model.name}"
+  group: experiment_hapt_twohead_lstm
+  tags: [LSTM, HAPT,CNN,2Stage]
+  id: null

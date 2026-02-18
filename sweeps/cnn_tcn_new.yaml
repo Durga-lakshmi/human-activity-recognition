@@ -1,0 +1,23 @@
+program: main.py
+method: bayes
+
+# use method：
+# ./submit.sh sweeps/cnn_tcn_new.yaml
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+
+metric:
+  name: val/f1_macro      # 用验证集 macro F1 做目标
+  goal: maximize
+
+early_terminate:
+  type: hyperband
+  min_iter: 10
+
+parameters:
+  train.lambda_bayes:
+    values: [0.0, 0.1, 0.2, 0.3, 0.5]

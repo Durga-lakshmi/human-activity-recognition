@@ -1,0 +1,139 @@
+name: default_HAPT
+
+defaults:
+  - dataset: hapt
+  - model: cnn_tcn  # cnn_light_transformer # cnn_light_transformer # cnn  # hapt_lstm  # deepconv_2head # deepconv_matt # twohead_lstm  # twohead_lstm  # lstm_conv # deepconv_lstm # lstm_conv
+  - wandb: cnn_tcn  # cnn_light_transformer # cnn_light_transformer # cnn # conv_lstm # conv_lstm  # twohead_lstm  # twohead_lstm # lstm_conv # deepconv_lstm 
+  - train_module/optimizer: adamw
+  - train_module/scheduler: cosine # cosine # plateau # plateau # cosine # none # exponential
+  - train_module/loss:  cross_entropy # focal  # cross_entropy # focal
+  #- loss: 
+  - _self_
+
+#path: /home/data/HAPT_dataset/RawData 
+
+plot_dataset:
+  num_samples: 1
+  save_dir: "./artificats/notebooks/EDA/HAPT"
+  file_name: "hapt_user1_plot_seperate.png"
+  sample_path: "${plot_dataset.save_dir}/${plot_dataset.file_name}"
+
+debug:
+  save_dir: "./artificats/notebooks/EDA/HAPT/windows"
+  save_path: "${debug.save_dir}/debug_train_new.npz"
+  save_threshold_path: "${debug.save_dir}/threshold_train_new.npz"
+
+
+# Training
+num_classes: 12 # 12
+
+
+
+  #label_purity_th: 0 #!
+  #amp_limit: 20.0
+  #purity_th_stage1: 0.8 
+  #purity_th_stage2: 0.6
+
+# --------- Training-related hyperparameters (to be used for BO/Optuna)---------
+train:
+  metric: f1             # acc | f1
+  lambda_phys: 0.000237553833412742 # 0.8 # 1 # 1.0e-3  # 0.2 ~ 0.5 区间先试一个  # 物理 smoothness loss 权重（BO 搜索）
+  lambda_trans: 0.02012732142826834      
+  #lambda_34: 0 
+  lambda_smooth: 0.0 #0.2
+  lambda_temp: 0.5214165242447223
+  use_bayes_prior: true
+  lambda_bayes: 0.00861943610441284 #0.2
+  use_asym_penalty: true
+  asym_penalty_factor: 0.0  #10
+  #static_ce_scale: 1 # 0.5 # 0.5   
+  #static_classes: [3, 4, 5] # [3, 4, 5]
+  fine_tune: false          
+  fine_tune_ckpt: ./checkpoints/CNN_TCN/20260127_0013__best_model_epoch200.pth
+
+  minor_dataloader: false  # if enable minor dataset
+
+
+
+  # CrossEntropy 的最终 weight 列表（6 个 state 类）
+  # 注意：这里只覆盖 state head 的 0..5 类
+  #loss_weight: [1.0, ${train.alpha_1}, 1.0, ${train.alpha_3}, 1.0, ${train.alpha_5}]
+  #loss_weight: [1.0, 1.0 , 1.0, 0.7 , 1.0, 3.0]
+
+#training:
+#  stage: 2 # 1 - coarse pretraining | 2 - joint training with temporal crop + mask | 3 - transition
+#  #crop_len: 64 # only used when stage == 2
+#   # ---- Stage2 only ----
+#  temporal_crop:
+#    enable: true              # 只有 stage==2 才会真正启用
+#    crop_len: 64              # 模拟小窗（128 -> 64）
+#    use_mask: true            # LSTM 用 mask + pack
+
+#  # loss weights (Stage2)
+#  lambda_coarse: 0.3          # coarse loss 作为正则
+
+#use_amp: true
+
+
+
+
+
+# Training parameters
+lr: 0.002772008541489717 # 1e-3 # 3e-4
+train_eps: 1e-8 # Adam/AdamW epsilon parameter #in which situation changes this? how big?
+
+
+seed: 42
+epochs: 1
+log_interval: 10
+eval_interval: 1
+
+# Saving
+save:
+  base_dir: "./checkpoints"
+  model_name: ${model.name}
+  date_prefix: ${now:%Y%m%d_%H%M}
+  save_dir: "${save.base_dir}/${save.model_name}"
+  file_name: "${save.date_prefix}__best_model_epoch${epochs}.pth" #stage${training.stage} #important changed point
+  path: "${save.save_dir}/${save.file_name}"
+
+
+# Testing
+check_modus: false #true
+check_optuna: false  #true #true
+check_path: ./checkpoints/CNN_TCN/20260127_0013__best_model_epoch200.pth
+
+#./checkpoints/CNN_TCN/20260127_0013__best_model_epoch200.pth
+#./checkpoints/CNN_TCN/20260129_1608__best_model_epoch200.pth
+
+eval:
+  do_tsne: false          
+  tsne_max_samples: 4000
+  tsne_perplexity: 30.0
+  save_dir: "./artificats/notebooks/EDA/HAPT_post"
+  file_name: "${save.date_prefix}_${model.name}"
+  tsne_save_path: "${eval.save_dir}/${eval.file_name}_tsne_test.png"
+
+  plot_cm: true
+  cm_save_path: "${eval.save_dir}/${eval.file_name}_cm_test.png"
+
+  use_bayes_seq: false
+  lambda_bayes_seq: 0.1
+
+#check_path: 
+
+# ./checkpoints/DEEPCONVLSTM/20260114_1519_best_model_epoch100.pth
+
+split_analysis:
+  save_dir: "./artificats/notebooks/EDA/HAPT/split_analyse"
+  label_dist_file: "label_distribution.png"
+  global_stat_file: "global_mean_std.png"
+  pca_file: "pca_split_projection.png"
+  domain_file: "domain_classifier.txt"
+
+  label_dist_path: "${split_analysis.save_dir}/${split_analysis.label_dist_file}"
+  global_stat_path: "${split_analysis.save_dir}/${split_analysis.global_stat_file}"
+  pca_path: "${split_analysis.save_dir}/${split_analysis.pca_file}"
+  domain_path: "${split_analysis.save_dir}/${split_analysis.domain_file}"
+
+

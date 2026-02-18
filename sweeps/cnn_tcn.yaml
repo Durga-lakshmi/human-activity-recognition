@@ -1,0 +1,106 @@
+program: main.py
+method: bayes
+
+# 用法示例：
+# ./submit.sh sweeps/cnn_tcn.yaml
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}
+
+metric:
+  name: val/f1_macro      # 用验证集 macro F1 做目标
+  goal: maximize
+
+early_terminate:
+  type: hyperband
+  min_iter: 10
+
+parameters:
+  # =============================
+  # 1) 学习率（全局）
+  # =============================
+  lr:
+    distribution: log_uniform_values
+    min: 1e-4
+    max: 5e-3
+
+  train_module.loss.alpha_block_1:
+    distribution: uniform
+    min: 4.0
+    max: 10.0
+
+  train_module.loss.alpha_block_2:
+    distribution: uniform
+    min: 6.0
+    max: 12.0
+
+
+  #train_module.loss.alpha_6:
+  #  distribution: uniform
+  #  min: 4.0
+  #  max: 10.0
+
+  #train_module.loss.alpha_7:
+  #  distribution: uniform
+  #  min: 4.0
+  #  max: 10.0
+
+  #train_module.loss.alpha_8:
+  #  distribution: uniform
+  #  min: 4.0
+  #  max: 10.0
+
+  #train_module.loss.alpha_9:
+  #  distribution: uniform
+  #  min: 4.0
+  #  max: 12.0 
+
+  #train_module.loss.alpha_10:
+  #  distribution: uniform
+  #  min: 4.0
+  #  max: 12.0
+
+  #train_module.loss.alpha_11:
+  #  distribution: uniform
+  #  min: 4.0
+  #  max: 12.0
+  # =============================
+  # 3) CNN kernel size
+  #    在 CNNTCN_HAR 里用：
+  #    kernel_size = cfg.model.cnn_kernel_size
+  # =============================
+  model.cnn_kernel_size:
+    values: [3, 5, 7]
+
+  # =============================
+  # 4) TCN dropout（只针对 TCN block）
+  # =============================
+  model.tcn_dropout:
+    distribution: uniform
+    min: 0.1
+    max: 0.4
+
+  # =============================
+  # 5) TCN dilation 结构
+  #    用字符串枚举，在构建模型时解析：
+  #    if cfg.model.tcn_dilations == "1,2":
+  #        dilations = [1, 2]
+  #    elif cfg.model.tcn_dilations == "1,2,4":
+  #        dilations = [1, 2, 4]
+  # =============================
+  model.tcn_dilations:
+    values:
+      - [1,2]
+      - [1,2,4]
+      - [2,4]
+
+  # =============================
+  # 6) 时间池化方式
+  #    "mean": x.mean(dim=-1)
+  #    "mean_max": torch.cat([x.mean(-1), x.max(-1).values], dim=-1)
+  # =============================
+  model.pooling:
+    values: ["mean", "mean_max"]

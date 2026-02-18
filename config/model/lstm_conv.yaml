@@ -1,0 +1,11 @@
+name: LSTMCONV
+in_channels: 11          # 6-axis IMU
+num_classes: ${num_classes}
+lstm_hidden: 128
+lstm_layers: 2
+bidirectional: true
+conv_channels: 64
+kernel_size: 5
+lstm_dropout: 0
+head_dropout: 0.4
+pool: gap # gap  # attn

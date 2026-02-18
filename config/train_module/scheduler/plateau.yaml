@@ -1,0 +1,6 @@
+name: plateau
+mode: min
+factor: 0.5
+patience: 5
+threshold: 1e-3
+min_lr: 1e-6

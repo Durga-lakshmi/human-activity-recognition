@@ -1,0 +1,13 @@
+name: har_lstm
+
+init:
+  enable: true
+  project: human_activity
+  config:
+    model_name: ${model.name}
+    dataset_name: ${dataset.name}
+    epochs: ${epochs}
+    lr: ${lr}
+    batch_size: ${dataset.batch_size}
+    num_classes: ${model.num_classes}
+

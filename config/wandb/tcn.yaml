@@ -1,0 +1,9 @@
+name: tcn
+init:
+  enable: true
+  #entity: "zizi-Deep-Learning-Labor"
+  project: NEW_human_activity  #_tcn
+  name: "${save.date_prefix}_${model.name}"
+  group: experiment_hapt_tcn
+  tags: [HAPT,TCN]
+  id: null

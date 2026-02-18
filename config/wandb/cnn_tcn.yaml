@@ -1,0 +1,10 @@
+name: cnn_tcn
+
+init:
+  enable: true
+  #entity: "zizi-Deep-Learning-Labor"
+  project: NEW_human_activity_cnn_tcn  #_cnn
+  name: "${save.date_prefix}_${model.name}"
+  group: experiment_hapt_cnn_tcn
+  tags: [HAPT,CNN,TCN,use_bayes_prior,use_bayes_seq_test,use_pose,transition_matrix]
+  id: null

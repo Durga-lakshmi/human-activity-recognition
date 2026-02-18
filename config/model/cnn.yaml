@@ -1,0 +1,4 @@
+name: CNN
+in_channels: 11              # acc+gyro = 6
+num_classes: 12              
+dropout: 0.3
